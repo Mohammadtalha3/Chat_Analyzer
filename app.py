@@ -1,23 +1,37 @@
 import streamlit as st
-import proccessing,functions
+import processing2,functions
 import matplotlib.pyplot as plt 
 import seaborn as sns
+import tempfile
 st.sidebar.title("Chat Analyzer")
 
 
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 
-if uploaded_file is not None:
+'''if uploaded_file is not None:
     bytes_Data= uploaded_file.getvalue()
     data= bytes_Data.decode("utf-8")
     df= proccessing.preprocessing(data)
 
-    st.dataframe(df)    
+    st.dataframe(df)'''   
+
+if uploaded_file is not None:
+    with tempfile.NamedTemporaryFile(delete=False) as fp:
+        fp.write(uploaded_file.getvalue())
+        temp_path = fp.name
+
+        key=st.sidebar.selectbox('Please select the format: ',
+                         ('12hr','24hr','custom'))
+
+    df= processing2.preprocessing(temp_path,key)
+    st.dataframe(df)
+   
+    
 
 
     usr_lst= df['users'].unique().tolist()
-    usr_lst.remove('Group NOtification')
+    usr_lst.remove('Group Notification')
     usr_lst.sort()
     usr_lst.insert(0,'Overall')
     selected_usr=st.sidebar.selectbox('Select user',usr_lst)
@@ -105,13 +119,13 @@ if uploaded_file is not None:
 
             with col2:
                 st.dataframe(df2)
-        
+        st.title('word cloud')
         wc_df=functions.word_cloud(selected_usr,df)
         fig,ax= plt.subplots()
         ax.imshow(wc_df)
         st.pyplot(fig)
 
-
+        st.title('Most used words')
         r_df= functions.most_used_words(selected_usr,df)
 
         fig,ax= plt.subplots()

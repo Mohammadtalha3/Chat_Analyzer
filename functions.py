@@ -52,14 +52,14 @@ def word_cloud(selected_usr,df):
 
 def most_used_words(selected_usr,df):
 
-    f= open('D:\chat_Analyzer\punjabi_stopwords.txt','r')
+    f= open('D:\chat_Analyzer2\stop_hinglish.txt','r')
     stopwords= f.read()
 
     if selected_usr != 'Overall':
         df=df[df['users']== selected_usr]
     
     temp= df[df['messages'] !='<Media omitted>\n']
-    temp= temp[temp['users'] != 'Group NOtification']
+    temp= temp[temp['users'] != 'Group Notification']
 
     word=[]
     for message in temp['messages']:
