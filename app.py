@@ -3,11 +3,16 @@ import processing2,functions
 import matplotlib.pyplot as plt 
 import seaborn as sns
 import tempfile
+import sentiment_Analysis
+import pandas as pd
+
+
 st.sidebar.title("Chat Analyzer")
 
 
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
+
 
 '''if uploaded_file is not None:
     bytes_Data= uploaded_file.getvalue()
@@ -24,8 +29,13 @@ if uploaded_file is not None:
         key=st.sidebar.selectbox('Please select the format: ',
                          ('12hr','24hr','custom'))
 
+    df=pd.read_fwf(temp_path)    
+
     df= processing2.preprocessing(temp_path,key)
-    st.dataframe(df)
+
+    
+    dt=sentiment_Analysis.unwanted_data(result=df)
+    st.dataframe(dt)
    
     
 
