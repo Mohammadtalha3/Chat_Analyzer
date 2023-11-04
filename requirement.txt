@@ -1,0 +1,8 @@
+nltk
+pandas
+matplotlib
+seaborn
+streamlit
+urlextract
+wordcloud
+emoji
