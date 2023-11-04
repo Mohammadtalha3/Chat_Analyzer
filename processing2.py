@@ -1,6 +1,8 @@
 import pandas as pd
 import re
+import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+nltk.download('vader_lexicon')
 
 def preprocessing(data,key):
         split_formats = {
