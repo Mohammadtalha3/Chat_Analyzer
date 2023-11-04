@@ -77,7 +77,7 @@ def preprocessing(data,key):
 
                 return dt
 
-data = 'D:\chat_Analyzer2\Dataset\whatsapp-chat-data.txt'  
+data = 'D:\chat_Analyzer2\Chat_Analyzer\Dataset\whatsapp-chat-data.txt'  
 key = '12hr'
 result= preprocessing(data,key)
 
