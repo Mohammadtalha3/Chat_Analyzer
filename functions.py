@@ -76,7 +76,7 @@ def most_used_words(selected_usr,df):
 def user_emoji(selected_usr,df):
 
     if selected_usr != 'Overall':
-        df= df[df[df['users']== selected_usr]]
+        df= df[df['users']== selected_usr]
     
 
     emojis=[]
@@ -141,6 +141,11 @@ def heatmap(selected_usr,df):
     user_heatmap = df.pivot_table(index='date_name', columns='period', values='messages', aggfunc='count').fillna(0)
 
     return user_heatmap
+
+def sentiment(selected_usr,df):
+    if selected_usr!='Overall':
+        df=df[df['users']==selected_usr]
+    return df[['positive','negative','neutral']]
 
 
                     

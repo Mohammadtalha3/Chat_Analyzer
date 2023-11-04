@@ -39,8 +39,8 @@ def preprocessing(data,key):
           messages.append(a[0])
 
 
-      unwanted_message = 'Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more.'
-      dt = dt[dt['messages'] != unwanted_message]
+      #unwanted_message = 'Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more.'
+      #dt = dt[dt['messages'] != unwanted_message]
 
 
       #dt=dt.loc[dt['messages']!=' Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more.']
@@ -184,7 +184,8 @@ def unwanted_data(result):
     "+91 90822 59476 joined using this group's invite link",
     "+91 72495 29889 joined using this group's invite link",
     "+91 88790 69347 joined using this group's invite link",
-    "+91 99202 79905 joined using this group's invite link",]
+    "+91 99202 79905 joined using this group's invite link",
+    "<Media omitted>"]
   
 
   mask = result['messages'].str.contains('|'.join(map(re.escape, lst)), case=False, na=False, regex=True)

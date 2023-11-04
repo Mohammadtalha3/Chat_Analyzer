@@ -34,8 +34,8 @@ if uploaded_file is not None:
     df= processing2.preprocessing(temp_path,key)
 
     
-    dt=sentiment_Analysis.unwanted_data(result=df)
-    st.dataframe(dt)
+    dt=processing2.unwanted_data(df)
+    #st.dataframe(dt)
    
     
 
@@ -47,6 +47,7 @@ if uploaded_file is not None:
     selected_usr=st.sidebar.selectbox('Select user',usr_lst)
 
     if st.sidebar.button("Analyze"):
+        
 
         no_mesg,word,media_mesg,num_links=functions.stats(selected_usr,df)
 
@@ -65,6 +66,35 @@ if uploaded_file is not None:
         with col4:
             st.header("Total links Shared")
             st.title(num_links)
+        
+
+        senti=functions.sentiment(selected_usr,df)
+        st.title('Chat Sentiment')
+        col2,col3= st.columns(2)
+
+        '''with col1:
+            st.header('Sentiment Dataframe')
+            st.dataframe(senti)'''
+        with col2:
+            if selected_usr != 'Overall':
+                df = df[df['users'] == selected_usr]
+
+            numeric_df = df.select_dtypes(include=['int64', 'float64'])
+            column_with_maximum_value = numeric_df.sum().idxmax()
+            st.header('Message sentiment')
+            maximum_value_column = df[column_with_maximum_value]
+            st.title(column_with_maximum_value)
+        with col3:
+            st.header('Distribution of Message Sentiments')
+            if {'positive', 'negative', 'neutral'}.issubset(df.columns):
+                message_counts = df[['positive', 'negative', 'neutral']].sum()
+                fig, ax = plt.subplots()
+                ax.pie(message_counts, labels=message_counts.index, autopct='%1.1f%%')
+                #plt.title('Distribution of Message Sentiments')
+                st.pyplot(fig)
+            else:
+                st.write("The columns 'pos', 'neg', 'neu' do not exist in the DataFrame.")
+            
 
 
         st.title('Timeline')
