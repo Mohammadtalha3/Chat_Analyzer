@@ -52,7 +52,7 @@ def word_cloud(selected_usr,df):
 
 def most_used_words(selected_usr,df):
 
-    f= open('D:\chat_Analyzer2\stop_hinglish.txt','r')
+    f= open('stop_hinglish.txt','r')
     stopwords= f.read()
 
     if selected_usr != 'Overall':

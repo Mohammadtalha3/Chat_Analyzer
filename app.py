@@ -3,7 +3,6 @@ import processing2,functions
 import matplotlib.pyplot as plt 
 import seaborn as sns
 import tempfile
-import sentiment_Analysis
 import pandas as pd
 
 
@@ -13,13 +12,7 @@ st.sidebar.title("Chat Analyzer")
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 
-
-'''if uploaded_file is not None:
-    bytes_Data= uploaded_file.getvalue()
-    data= bytes_Data.decode("utf-8")
-    df= proccessing.preprocessing(data)
-
-    st.dataframe(df)'''   
+  
 
 if uploaded_file is not None:
     with tempfile.NamedTemporaryFile(delete=False) as fp:
@@ -35,7 +28,7 @@ if uploaded_file is not None:
 
     
     dt=processing2.unwanted_data(df)
-    #st.dataframe(dt)
+    
    
     
 
@@ -72,9 +65,7 @@ if uploaded_file is not None:
         st.title('Chat Sentiment')
         col2,col3= st.columns(2)
 
-        '''with col1:
-            st.header('Sentiment Dataframe')
-            st.dataframe(senti)'''
+        
         with col2:
             if selected_usr != 'Overall':
                 df = df[df['users'] == selected_usr]
